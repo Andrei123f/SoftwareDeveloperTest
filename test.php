@@ -1,4 +1,8 @@
 <?php
+require_once('NodeParent.php');
+require_once('NodeChild.php');
+require_once('ParentsList.php');
+
 $file = fopen("inputFile.txt" , "r"); //the file we get our input from
 
 while(! feof($file)){
@@ -25,9 +29,6 @@ while(! feof($file)){
 		$name=substr($line,6,$size); // the name of the child
 		echo("NEWCHILD<font color='blue'>" . $name . "</font><br />");
 	}
-		
-	
 }
-
 fclose($file);
 ?>
