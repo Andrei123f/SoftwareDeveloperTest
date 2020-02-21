@@ -1,39 +1,23 @@
-<Red>Documents
-
-<Red>Images
-
-<Blue>Image1.jpg</Blue>
-<Blue>Image1.jpg</Blue>
-<Blue>Image1.jpg</Blue>
-
-</Red>
-
-<Red>Works
-
-<Blue>Letter.doc</Blue>
-
-<Red>Accountant
-
-<Blue>Accounting.xls</Blue>
-<Blue>AnnualReport.xls</Blue>
-
-</Red>
-
-</Red>
-
-<Red>Program Files
-
-<Red>Skype
-
-<Blue>Skype.exe</Blue>
-<Blue>Readme.txt</Blue>
-</Red>
-
-<Red>Mysql
-
-<Blue>Mysql.exe</Blue>
-<Blue>Mysql.com</Blue>
-
-</Red>
-
-</Red>
+ Red Documents
+ Red Images
+ Blue Image1.jpg /Blue
+ Blue Image2.jpg /Blue
+ Blue Image3.jpg /Blue
+/Red
+ Red Works
+ Blue Letter.doc /Blue
+ Red Accountant
+ Blue Accounting.xls /Blue
+ Blue AnnualReport.xls /Blue
+/Red
+/Red
+ Red Program Files
+ Red Skype
+ Blue Skype.exe /Blue
+ Blue Readme.txt /Blue
+/Red
+ Red Mysql
+ Blue Mysql.exe /Blue
+ Blue Mysql.com /Blue
+/Red
+/Red
