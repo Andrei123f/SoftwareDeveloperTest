@@ -2,7 +2,7 @@
 class ParentsList
 {
     public $stack;
-    protected $limit;
+    private $limit;
     
     public function __construct($limit) {
         $this->stack = array();
