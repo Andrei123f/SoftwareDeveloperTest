@@ -29,7 +29,7 @@
 <Blue>Readme.txt</Blue>
 </Red>
 
-<Red> Mysql
+<Red>Mysql
 
 <Blue>Mysql.exe</Blue>
 <Blue>Mysql.com</Blue>
