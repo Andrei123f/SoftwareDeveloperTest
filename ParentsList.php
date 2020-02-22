@@ -1,7 +1,8 @@
 <?php
+//The class that is creating the stack.
 class ParentsList
 {
-    public $stack;
+    private $stack;
     private $limit;
     
     public function __construct($limit) {
@@ -32,5 +33,8 @@ class ParentsList
     public function isEmpty() {
         return empty($this->stack);
     }
+	public function getSize(){
+		return sizeof($this->stack);
+	}
 }
 ?>

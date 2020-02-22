@@ -1,4 +1,5 @@
 <?php
+//The class that represents the directory for this problem.
 class NodeParent{
 	 private $name;
 	 private $subParents=array();

@@ -1,4 +1,5 @@
 <?php
+//The class that represents the file from this problem.
 class NodeChild{
 	 private $name;
 	 
