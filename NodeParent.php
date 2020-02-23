@@ -9,13 +9,19 @@ class NodeParent{
 		 $this->name=$name;
 	 }
 	 function addChild($child){
-		 $this->children = $child;
+		 $this->children[] = $child;
 	 }
 	 function addParent($parent){
-		 $this->subParents = $parent;
+		 $this->subParents[] = $parent;
 	 }
 	 function getName(){
 		 return $this->name;
+	 }
+	 function getSubParents(){
+		 return $this->subParents;
+	 }
+	 function getChildren(){
+		 return $this->children;
 	 }
  }
 ?>
