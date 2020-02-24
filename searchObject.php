@@ -1,5 +1,5 @@
 <?php
-//The class that is creating the stack.
+//The class for the object that searches
 require_once('NodeParent.php');
 require_once('NodeChild.php');
 class searchObject
@@ -7,15 +7,16 @@ class searchObject
 	private $searchedItem;
 	private $parents = array();
 	/*
-	current($parents)->getName() //for getting the first element of the stack.
-	array_shift($parents); //for popping the first element of the stack.
+	current($parents)->getName() //for getting the first element of the queue.
+	array_shift($parents); //for popping the first element of the queue.
 	*/
 	function findMatch($parents, $searchedItem){
+		if(empty($searchedItem))
+			return("Invalid input: only spaces!");
 		$finalOutput="";
 		$wasFound=false;
 		while(!empty($parents)){
 			$currentParent=current($parents);
-			echo("Current parent:" . $currentParent->getName() ."<br />");
 			$output= $this->recursiveSearch($currentParent,$searchedItem);
 			$compare=strcmp($output,"NOTFOUND");
 			
@@ -46,7 +47,6 @@ class searchObject
 	*/
 	
 	function recursiveSearch($parent,$searchedItem){
-		
 		$queue=array();
 		$start=$parent;
 		$start->setSearched();
@@ -54,7 +54,6 @@ class searchObject
 		
 		while(!empty($queue)){
 			$current = array_shift($queue);
-			echo("Looking at:" . $current->getName()."<br />");
 			$name=$current->getName();
 			
 			$foundIt=strpos($name,$searchedItem);
