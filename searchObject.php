@@ -59,9 +59,85 @@ class searchObject
 			$name=$current->getName();
 			
 			$foundIt=strpos($name,$searchedItem);
+			
 			if($foundIt !==false){
-				return("FOUND IT:". $current->getName());
+				
+				$output="C:'\'";
+				$output=str_replace("'","",$output);
+				$path=array();
+				$next = $current->getParent();
+				array_push($path,$current);
+				
+				if($current instanceof NodeChild){
+				$output="C:'\'";
+				$output=str_replace("'","",$output);
+				$path=array();
+				$next = $current->getParent();
+				array_push($path,$current);
+				$intOutput="";
+				while($next != null){ //printing the path from the root to the NodeChild node
+					array_push($path,$next);
+					$next=$next->getParent();
+				}
+				for($x=sizeof($path)-1;$x>=0;$x--){
+					$node=$path[$x];
+					$intOutput=$node->getName()."'\'";
+					$intOutput=str_replace("'","",$intOutput);
+					$output.=$intOutput;
+				}
+				return $output;
+				}
+				else{ //printing the path from root to the NodeParent node
+					$children=$current->getChildren();
+					$subParents=$current->getSubParents();
+					$parentsPath=array();
+					
+					while($next != null){
+					array_push($path,$next);
+					$next=$next->getParent();
+				}
+				for($x=sizeof($path)-1;$x>=0;$x--){
+					$node=$path[$x];
+					$intOutput=$node->getName()."'\'";
+					$intOutput=str_replace("'","",$intOutput);
+					$output.=$intOutput;
+				}
+				$output.="<br />";
+				
+				//printing out the path to all of its children
+				if(!empty($children)){
+					$finalChildOutput="";
+					
+					foreach($children as $child){
+					$childrenPath=array();
+					$childOutput="C:'\'";
+					$childOutput=str_replace("'","",$childOutput);
+					
+					array_push($childrenPath,$child);
+					$next=$child->getParent();					
+					while($next != null){ //printing the path from the root to the NodeChild node
+					array_push($childrenPath,$next);
+					$next=$next->getParent();
+				}
+				
+				for($x=sizeof($childrenPath)-1;$x>=0;$x--){
+					$node=$childrenPath[$x];
+					$intOutput=$node->getName()."'\'";
+					$intOutput=str_replace("'","",$intOutput);
+					$childOutput.=$intOutput;
+				}
+				$finalChildOutput.=$childOutput."<br />";
+				
+
+					}
+					$output.=$finalChildOutput;
+				}
+					
+				return $output;
+				}
+				
 			}
+			
 			if($current instanceof NodeParent){
 			$nodes= array_merge($current->getSubParents(), $current->getChildren());
 			}
@@ -74,6 +150,11 @@ class searchObject
 			
 		}
 		return "NOTFOUND";
+	}
+	
+	
+	function getPath($node){
+	
 	}
 }
 ?>
