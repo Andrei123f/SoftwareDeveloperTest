@@ -1,4 +1,7 @@
 <?php
+//The class that is creating the stack.
+require_once('NodeParent.php');
+require_once('NodeChild.php');
 class searchObject
 {
 	private $searchedItem;
@@ -9,34 +12,66 @@ class searchObject
 	*/
 	function findMatch($parents, $searchedItem){
 		$finalOutput="";
+		$wasFound=false;
 		while(!empty($parents)){
 			$currentParent=current($parents);
-			$output= $this->recursiveSearch($currentParent,$searchedItem,0);
-			if(strcmp($output,"NOTFOUND") == 0)
-				$array_shift($parents);
+			echo("Current parent:" . $currentParent->getName() ."<br />");
+			$output= $this->recursiveSearch($currentParent,$searchedItem);
+			$compare=strcmp($output,"NOTFOUND");
+			
+			if($compare == 0){
+				array_shift($parents);
+			}
 			else{
 				$finalOutput.=$output;
+				$wasFound=true;
 				break;
 			}				
 		}
-		
-		return($finalOutput);
+		if(!$wasFound)
+			return("The searched Item ". $searchedItem ." was not found");
+		else
+			return($finalOutput);
 	}
 	/*
 	The function will output "NOTFOUND" if the searched item is not in that specific tree.
 	The function will output the path to that specific searched item if it is found in that tree.
-	I will use the Breadth-first search algorithm to traverse the tree with a custom adaptation. 
-	Whenever I see a possible match for the word there are 2 cases:
-	If that node is a NodeChild, I print the path from the root to that node.
-	If that node is a NodeParent, I print the path from the root to that node.Now I have 3 cases:
-	The node NodeParent has no other NodeParent nodes, in this case I iterate through the children of that node, creating a path for each one of them.
-	The node NodeParent has no NodeChild nodes and it has only NodeParents Nodes, in this case I will print the whole subtree.
-	The node NodeParent has NodeParent nodes and NodeChildren nodes in this case I print all the path of NodeChildren and then I iterate through all the NodeParent nodes and I continue the algorithm. 
+	The basecase: when we have no more subParents and we have not found the file.
+	The idea: the function returns the full all below levels(including children) if it is called on foundit =1
+	
+	if children are 0 and we have not found, we pop the first el of the stack
+	when we pop and lvl is 3( sizeof(subParents)+1) we add that name of the dir in the output and
+	then we append the recursiveSearch for each of its subParents
 	*/
 	
-	function recursiveSearch($parent,$searchedItem,$foundIt){
-		$output="";
-	return output;
+	function recursiveSearch($parent,$searchedItem){
+		
+		$queue=array();
+		$start=$parent;
+		$start->setSearched();
+		array_push($queue,$start);
+		
+		while(!empty($queue)){
+			$current = array_shift($queue);
+			echo("Looking at:" . $current->getName()."<br />");
+			$name=$current->getName();
+			
+			$foundIt=strpos($name,$searchedItem);
+			if($foundIt !==false){
+				return("FOUND IT:". $current->getName());
+			}
+			if($current instanceof NodeParent){
+			$nodes= array_merge($current->getSubParents(), $current->getChildren());
+			}
+			foreach($nodes as $node){
+				if(!$node->isSearched()){
+					$node->setSearched();
+					array_push($queue,$node);
+				}
+			}
+			
+		}
+		return "NOTFOUND";
 	}
 }
 ?>

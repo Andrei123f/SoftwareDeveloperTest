@@ -7,7 +7,6 @@ require_once('NodeChild.php');
 require_once('ParentsList.php');
 require_once('searchObject.php');
 $con=new mysqli('127.0.0.1', 'root', '', 'testjob');
-echo($searchedItem);
 if($con ->connect_error){
 	echo ("<h1> <font color='red'>Failed to connect to the database server</font></h1>");
 }
@@ -45,7 +44,7 @@ while(! feof($file)){
 				$sql="INSERT INTO root (name_of_root) VALUES ('$name')"; //creating the SQL syntax for inserting
 		echo("Created a new parent with the name of <font color ='red'> ". $stack->peek()->getName()."</font> <br />");
 			
-			
+			/*
 			if(!$con->query($sql)){ //inserting the name of the parent
 				echo ("<font color='red'>Failed inserting the parent" ."<b>".$parent->getName()."</b>"."</font> <br />");
 			}
@@ -55,18 +54,18 @@ while(! feof($file)){
 				$lastId= $con-> insert_id;
 				$_SESSION["last_id"] = $lastId;
 				
-			
+			*/
 
 			}
 			else{
-			//	echo($_SESSION["last_id"]. "<br />");
 				$size = $stack->getSize();
 				$subParent = new NodeParent();
 				$subParent -> setName($name);
 				$parent = $stack->peek();	
 				$parent -> addParent($subParent);
+				$subParent->setParent($parent);
 				echo("ADDED " . $subParent->getName() . " TO " . $parent->getName() . "<br />");			
-				
+				/*
 				if($size == 1){
 					$value = $_SESSION["last_id"];
 					$sql="INSERT INTO Directories (id_of_root, name_of_dir) VALUES ('$value','$name')";
@@ -95,7 +94,7 @@ while(! feof($file)){
 					
 				}
 				$_SESSION["last_Sid"] = $con -> insert_id;
-				
+				*/
 				$stack -> push($subParent);
 		echo("Created a new parent  named <font color ='red'>" .$subParent->getName() . " </font> within the parent <font color ='red'>" .$parent->getName(). "</font> <br />");
 			}
@@ -116,7 +115,8 @@ while(! feof($file)){
 		$child->setName($name);
 		$parent=$stack->peek();
 		$parent->addChild($child);
-		
+		$child->setParent($parent);
+		/*
 		if($sizeStack==2){
 			$value = $_SESSION["last_Sid"];
 				$sql="INSERT INTO Contents (id_of_dir, name_of_file,is_dir) VALUES ('$value','$name',False)";
@@ -145,12 +145,13 @@ while(! feof($file)){
 		$sql="INSERT INTO Intermediary1 (id_of_content, id_of_newTable_element) VALUES ('$valueP', '$valueC')";
 		$con->query($sql);
 		}
-		
+		*/
 
 		echo("Created a new child named <font color='blue'>" . $child->getName() . "</font> within the the directory <font color = 'red'>" . $parent->getName(). "</font><br />");
 	}
 }
-$search = new searchObject($searchedItem, $parents);
+echo("<h2> The searched item :". $searchedItem . " was it found?</h2> <br />");
+$search = new searchObject();
 echo("<h1>". $search->findMatch($parents, $searchedItem) ."</h1>");
 fclose($file);
 ?>
