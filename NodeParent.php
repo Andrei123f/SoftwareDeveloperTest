@@ -25,7 +25,7 @@ class NodeParent{
 	 function setParent($parent){
 		 $this->nodeParent = $parent;
 	 }
-	 function getParent($parent){
+	 function getParent(){
 		 return $this->nodeParent;
 	 }
 	 function getName(){
